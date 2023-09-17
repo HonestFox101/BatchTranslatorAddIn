@@ -22,7 +22,7 @@ namespace BatchTranslatorAddIn.Views
 
         private void ConfigForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-
+            config.Save();
         }
 
         private void SaveButton_Click(object sender, EventArgs e)
