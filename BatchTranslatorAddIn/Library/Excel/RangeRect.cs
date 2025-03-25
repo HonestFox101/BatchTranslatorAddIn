@@ -15,44 +15,45 @@ namespace BatchTranslatorAddIn.Utils.Excel
     {
         public RangeRect(Range range)
         {
-            RawRange = range;
+            _rawRange = range;
         }
-        public Range RawRange { get; set; }
-        public string Value { get => (string)RawRange.Value2; set => RawRange.Value2 = value; }
-        public int Count => RawRange.Count;
-        public bool IsSingle => RawRange.Count == 1;
-        public bool IsColumn => !IsSingle && RawRange.Columns.Count == 1;
-        public bool IsRow => !IsSingle && RawRange.Rows.Count == 1;
-        public int Width => RawRange.Columns.Count;
-        public int Height => RawRange.Rows.Count;
+        private Range _rawRange;
+        public string Value { get => (string)_rawRange.Value2; set => _rawRange.Value2 = value; }
+        public int Count => _rawRange.Count;
+        public bool IsCell => _rawRange.Count == 1;
+        public bool IsColumn => !IsCell && _rawRange.Columns.Count == 1;
+        public bool IsRow => !IsCell && _rawRange.Rows.Count == 1;
+        public int Width => _rawRange.Columns.Count;
+        public int Height => _rawRange.Rows.Count;
+        public string Address => _rawRange.Address.Replace("$", "");
         public RangeRect this[int x, int y]
         {
-            get => new RangeRect(RawRange.Cells[y + 1, x + 1] as Range);
-            set => (RawRange.Cells[y + 1, x + 1] as Range).Value2 = value.Value;
+            get => new RangeRect(_rawRange.Cells[y + 1, x + 1] as Range);
+            set => (_rawRange.Cells[y + 1, x + 1] as Range).Value2 = value.Value;
         }
-        public RangeRect Offset(int x, int y) => new RangeRect(RawRange.Offset[y, x]);
+        public RangeRect Offset(int x, int y) => new RangeRect(_rawRange.Offset[y, x]);
         public void InsertColumnToRight()
         {
-            this[Width - 1, 0].Offset(1, 0).RawRange.EntireColumn.Insert(XlInsertShiftDirection.xlShiftToRight);
+            this[Width - 1, 0].Offset(1, 0)._rawRange.EntireColumn.Insert(XlInsertShiftDirection.xlShiftToRight);
         }
         public void InsertRowToBottom()
         {
-            this[0, Height - 1].Offset(0, 1).RawRange.EntireRow.Insert(XlInsertShiftDirection.xlShiftDown);
+            this[0, Height - 1].Offset(0, 1)._rawRange.EntireRow.Insert(XlInsertShiftDirection.xlShiftDown);
         }
         public RangeRect Row(int yIndex)
         {
-            return new RangeRect(RawRange.Rows.Item[yIndex + 1] as Range);
+            return new RangeRect(_rawRange.Rows.Item[yIndex + 1] as Range);
         }
         public RangeRect Column(int xIndex)
         {
-            return new RangeRect(RawRange.Columns.Item[xIndex + 1] as Range);
+            return new RangeRect(_rawRange.Columns.Item[xIndex + 1] as Range);
         }
         public RangeRect[] Rows
         {
             get
             {
-                var rowsArr = new RangeRect[this.Height];
-                for (int i = 0; i < this.Height; i++)
+                var rowsArr = new RangeRect[Height];
+                for (int i = 0; i < Height; i++)
                     rowsArr[i] = Row(i);
                 return rowsArr;
             }
@@ -61,13 +62,17 @@ namespace BatchTranslatorAddIn.Utils.Excel
         {
             get
             {
-                var columnArr = new RangeRect[this.Width];
-                for (int i = 0; i < this.Width; i++)
+                var columnArr = new RangeRect[Width];
+                for (int i = 0; i < Width; i++)
                     columnArr[i] = Column(i);
                 return columnArr;
             }
         }
-        // 从左到右，从上到下遍历
+
+        /// <summary>
+        /// 从左到右，从上到下遍历
+        /// </summary>
+        /// <returns></returns>
         public IEnumerator GetEnumerator()
         {
             return new SelectedRectEnumerator(this);

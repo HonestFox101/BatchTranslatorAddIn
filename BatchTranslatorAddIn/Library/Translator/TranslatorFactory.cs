@@ -11,27 +11,27 @@ namespace BatchTranslatorAddIn.Utils.Translator
 {
     public abstract class TranslatorFactory
     {
-        static readonly Config.Config config = Config.Config.Instance;
+        static readonly Config.Config _config = Config.Config.Instance;
 
         public static ITranslator CreateBaiduTranslator()
         {
-            var baiduProperty = config.BaiduProperty;
+            var baiduProperty = _config.BaiduProperty;
             var appid = baiduProperty.AppID;
             var secret = baiduProperty.Secret;
             var qps = baiduProperty.QPS;
 
-            var from = config.From;
-            var to = config.To;
+            var from = _config.From;
+            var to = _config.To;
             return new BaiduTranslator(appid, secret, from, to, qps);
         }
         public static ITranslator CreateCaiyunTranslator()
         {
-            var caiyunProperty = config.CaiyunProperty;
+            var caiyunProperty = _config.CaiyunProperty;
             var token = caiyunProperty.Token;
             var qps = caiyunProperty.QPS;
 
-            var from = config.From;
-            var to = config.To;
+            var from = _config.From;
+            var to = _config.To;
             return new CaiyunTranslator(token, from, to, qps);
         }
 

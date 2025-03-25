@@ -46,6 +46,7 @@
             this.tab1 = this.Factory.CreateRibbonTab();
             this.TranslatorAddInGroup = this.Factory.CreateRibbonGroup();
             this.TranslationStart = this.Factory.CreateRibbonButton();
+            this.separator1 = this.Factory.CreateRibbonSeparator();
             this.EngineDrowDown = this.Factory.CreateRibbonDropDown();
             this.LanguageDrowDown = this.Factory.CreateRibbonDropDown();
             this.DirectionDrawDown = this.Factory.CreateRibbonDropDown();
@@ -64,6 +65,7 @@
             // 
             this.TranslatorAddInGroup.DialogLauncher = ribbonDialogLauncherImpl1;
             this.TranslatorAddInGroup.Items.Add(this.TranslationStart);
+            this.TranslatorAddInGroup.Items.Add(this.separator1);
             this.TranslatorAddInGroup.Items.Add(this.EngineDrowDown);
             this.TranslatorAddInGroup.Items.Add(this.LanguageDrowDown);
             this.TranslatorAddInGroup.Items.Add(this.DirectionDrawDown);
@@ -79,6 +81,10 @@
             this.TranslationStart.Name = "TranslationStart";
             this.TranslationStart.ShowImage = true;
             this.TranslationStart.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.TranslationStart_Click);
+            // 
+            // separator1
+            // 
+            this.separator1.Name = "separator1";
             // 
             // EngineDrowDown
             // 
@@ -146,5 +152,6 @@
         internal Microsoft.Office.Tools.Ribbon.RibbonDropDown EngineDrowDown;
         internal Microsoft.Office.Tools.Ribbon.RibbonDropDown LanguageDrowDown;
         internal Microsoft.Office.Tools.Ribbon.RibbonDropDown DirectionDrawDown;
+        internal Microsoft.Office.Tools.Ribbon.RibbonSeparator separator1;
     }
 }

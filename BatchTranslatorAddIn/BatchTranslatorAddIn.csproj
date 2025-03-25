@@ -26,13 +26,36 @@
     <NoStandardLibraries>false</NoStandardLibraries>
     <RootNamespace>BatchTranslatorAddIn</RootNamespace>
     <AssemblyName>BatchTranslatorAddIn</AssemblyName>
-    <LoadBehavior>3</LoadBehavior>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <DefineConstants>VSTO40</DefineConstants>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <BootstrapperComponentsLocation>HomeSite</BootstrapperComponentsLocation>
+    <PublishUrl>publish\</PublishUrl>
+    <InstallUrl />
+    <TargetCulture>zh-chs</TargetCulture>
+    <ApplicationVersion>1.0.0.0</ApplicationVersion>
+    <AutoIncrementApplicationRevision>true</AutoIncrementApplicationRevision>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>days</UpdateIntervalUnits>
+    <IsWebBootstrapper>False</IsWebBootstrapper>
+    <ProductName>BatchTranslatorAddIn</ProductName>
+    <PublisherName />
+    <SupportUrl />
+    <FriendlyName>BatchTranslatorAddIn</FriendlyName>
+    <OfficeApplicationDescription />
+    <LoadBehavior>3</LoadBehavior>
   </PropertyGroup>
   <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.7.2 %28x86 和 x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
     <BootstrapperPackage Include="Microsoft.VSTORuntime.4.0">
       <Visible>False</Visible>
       <ProductName>Microsoft Visual Studio 2010 Tools for Office Runtime %28x86 and x64%29</ProductName>
@@ -166,6 +189,7 @@
     can be found.
   -->
   <ItemGroup>
+    <Compile Include="Library\Worker\TranslationWorker.cs" />
     <Compile Include="Views\ConfigForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -181,16 +205,16 @@
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Utils\Common\Direction.cs" />
-    <Compile Include="Utils\Common\Language.cs" />
-    <Compile Include="Utils\Common\TransEngine.cs" />
-    <Compile Include="Utils\Config\BaiduProperty.cs" />
-    <Compile Include="Utils\Config\CaiyunProperty.cs" />
-    <Compile Include="Utils\Config\Config.cs" />
-    <Compile Include="Utils\Excel\Operations.cs" />
-    <Compile Include="Utils\Excel\RangeRect.cs" />
-    <Compile Include="Utils\Translator\ITranslator.cs" />
-    <Compile Include="Utils\Translator\TranslatorFactory.cs" />
+    <Compile Include="Library\Common\Direction.cs" />
+    <Compile Include="Library\Common\Language.cs" />
+    <Compile Include="Library\Common\TransEngine.cs" />
+    <Compile Include="Library\Config\BaiduProperty.cs" />
+    <Compile Include="Library\Config\CaiyunProperty.cs" />
+    <Compile Include="Library\Config\Config.cs" />
+    <Compile Include="Library\Excel\Operations.cs" />
+    <Compile Include="Library\Excel\RangeRect.cs" />
+    <Compile Include="Library\Translator\ITranslator.cs" />
+    <Compile Include="Library\Translator\TranslatorFactory.cs" />
     <Compile Include="Views\ProgressForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -254,7 +278,7 @@
     <ManifestKeyFile>BatchTranslatorAddIn_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>466265A791DBECCD0DB06361DEFA642FCBE40F76</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>E0C53CC036192DD50CE8A87BC9F99120DE334BD5</ManifestCertificateThumbprint>
   </PropertyGroup>
   <!-- Include the build rules for a C# project. -->
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
